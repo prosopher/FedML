@@ -1,12 +1,12 @@
 import numpy as np
 import logging
 
-from fedml_api.standalone.hierarchical_fl.group import Group as HierarchicalGroup
+from fedml_api.standalone.tornado.base_group import BaseGroup
 
-class RingGroup(HierarchicalGroup):
+class RingGroup(BaseGroup):
 
     def train(self, global_round_idx, w_init, sampled_client_indexes):
-        sampled_clients = [self.client_dict[client_idx] for client_idx in sampled_client_indexes]
+        sampled_clients = [self.get_client(client_idx) for client_idx in sampled_client_indexes]
 
         w_group_list = []
         w_chains = [w_init for _ in range(self.args.chain_num)]
@@ -37,3 +37,6 @@ class RingGroup(HierarchicalGroup):
                 w_eval_chains = w_eval_chains_dict[global_epoch]
                 w_group_list.append((global_epoch, self.aggregate(w_eval_chains)))
         return w_group_list
+
+    def get_comm_client_num(self):
+        return self.args.chain_num

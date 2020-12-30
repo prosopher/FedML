@@ -28,7 +28,7 @@ from fedml_api.model.nlp.rnn import RNN_OriginalFedAvg, RNN_StackOverFlow
 
 from fedml_api.data_preprocessing.MNIST.data_loader import load_partition_data_mnist
 from fedml_api.model.linear.lr import LogisticRegression
-from fedml_api.model.cv.resnet_gn import resnet18
+from fedml_api.model.cv.resnet_gn import resnet18, resnet34, resnet50
 
 from fedml_api.standalone.fedavg.fedavg_trainer import FedAvgTrainer
 
@@ -201,6 +201,12 @@ def create_model(args, model_name, output_dim):
     elif model_name == "resnet18_gn" and args.dataset == "fed_cifar100":
         logging.info("ResNet18_GN + Federated_CIFAR100")
         model = resnet18()
+    elif model_name == "resnet34_gn" and args.dataset == "fed_cifar100":
+        logging.info("ResNet34_GN + Federated_CIFAR100")
+        model = resnet34()
+    elif model_name == "resnet50_gn" and args.dataset == "fed_cifar100":
+        logging.info("ResNet50_GN + Federated_CIFAR100")
+        model = resnet50()
     elif model_name == "rnn" and args.dataset == "shakespeare":
         logging.info("RNN + shakespeare")
         model = RNN_OriginalFedAvg()

@@ -24,7 +24,7 @@ class RingTrainer(ConsensusTrainer):
                 # train each group chain
                 group_idx = group_indexes[(global_round_idx+chain_idx) % self.args.group_num]
                 sampled_client_indexes = group_to_client_indexes[group_idx]
-                group = self.group_dict[group_idx]
+                group = self.c.get_group(group_idx)
                 logging.info('group_idx : {}'.format(group.idx))
                 w_group_list = group.train(global_round_idx, w_chain, sampled_client_indexes)
                 for global_epoch, w in w_group_list:
@@ -41,3 +41,6 @@ class RingTrainer(ConsensusTrainer):
                     # evaluate performance
                     self.model.load_state_dict(w_eval_global)
                     self.local_test_on_all_clients(self.model, global_epoch)
+
+    def get_comm_client_num(self):
+        return self.args.chain_num * self.c.get_group(0).get_comm_client_num()

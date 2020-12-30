@@ -8,6 +8,7 @@ class Client(Client):
     def train(self, global_round_idx, group_round_idx, w):
         self.model.load_state_dict(w)
         self.model.to(self.device)
+        self.model.train()
 
         if self.args.client_optimizer == "sgd":
             optimizer = torch.optim.SGD(self.model.parameters(), lr=self.args.lr)

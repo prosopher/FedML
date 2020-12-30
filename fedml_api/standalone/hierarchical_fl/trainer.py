@@ -25,7 +25,7 @@ class Trainer(FedAvgTrainer):
                                                train_data_local_num_dict, self.args, self.device, self.model)
 
         # maintain a dummy client to be used in FedAvgTrainer::local_test_on_all_clients()
-        self.client_list = [Client(client_idx, train_data_local_dict[0], test_data_local_dict[0],
+        self.client_list = [Client(0, train_data_local_dict[0], test_data_local_dict[0],
                        train_data_local_num_dict[0], self.args, self.device, self.model)]
         logging.info("############setup_clients (END)#############")
 

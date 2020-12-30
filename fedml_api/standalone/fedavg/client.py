@@ -40,6 +40,7 @@ class Client:
     def train(self, w_global):
         self.model.load_state_dict(w_global)
         self.model.to(self.device)
+        self.model.train()
 
         # train and update
         if self.args.client_optimizer == "sgd":

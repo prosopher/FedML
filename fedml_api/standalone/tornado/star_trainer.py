@@ -15,7 +15,7 @@ class StarTrainer(ConsensusTrainer):
             w_groups_dict = {}
             for group_idx in sorted(group_to_client_indexes.keys()):
                 sampled_client_indexes = group_to_client_indexes[group_idx]
-                group = self.group_dict[group_idx]
+                group = self.c.get_group(group_idx)
                 w_group_list = group.train(global_round_idx, w_global, sampled_client_indexes)
                 for global_epoch, w in w_group_list:
                     if not global_epoch in w_groups_dict: w_groups_dict[global_epoch] = []
@@ -30,3 +30,6 @@ class StarTrainer(ConsensusTrainer):
                 if global_epoch % self.args.frequency_of_the_test == 0:
                     self.model.load_state_dict(w_global)
                     self.local_test_on_all_clients(self.model, global_epoch)
+
+    def get_comm_client_num(self):
+        return self.args.group_num * self.c.get_group(0).get_comm_client_num()

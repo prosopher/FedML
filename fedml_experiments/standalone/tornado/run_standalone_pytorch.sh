@@ -20,21 +20,23 @@ LR=$9
 
 OPT=$10
 
-GLOBAL_TOPOLOGY=$11
+SEED=$11
 
-GROUP_TOPOLOGY=$12
+GLOBAL_TOPOLOGY=$12
 
-GROUP_METHOD=$13
+GROUP_TOPOLOGY=$13
 
-CHAIN_NUM=$14
+GROUP_METHOD=$14
 
-GROUP_NUM=$15
+CHAIN_NUM=$15
 
-GLOBAL_COMM_ROUND=$16
+GROUP_NUM=$16
 
-GROUP_COMM_ROUND=$17
+GLOBAL_COMM_ROUND=$17
 
-EPOCH=$18
+GROUP_COMM_ROUND=$18
+
+EPOCH=$19
 
 python3 ./main.py \
 --gpu $GPU \
@@ -47,6 +49,7 @@ python3 ./main.py \
 --partition_method $DISTRIBUTION  \
 --lr $LR \
 --client_optimizer $OPT \
+--seed $SEED \
 --global_topology $GLOBAL_TOPOLOGY \
 --group_topology $GROUP_TOPOLOGY \
 --group_method $GROUP_METHOD \
@@ -54,4 +57,5 @@ python3 ./main.py \
 --group_num $GROUP_NUM \
 --global_comm_round $GLOBAL_COMM_ROUND \
 --group_comm_round $GROUP_COMM_ROUND \
---epochs $EPOCH
+--epochs $EPOCH \
+--frequency_of_the_test 10
